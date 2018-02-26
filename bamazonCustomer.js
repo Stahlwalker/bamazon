@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+require("console.table");
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -24,7 +25,7 @@ connection.connect(function(err) {
       throw err;
     }
     console.log("____________");
-    console.log(response);
+    console.table(response);
     runSearch();
   });
   
@@ -43,12 +44,12 @@ connection.connect(function(err) {
       })
       .then(function(answer) {
         switch (answer.action) {
-          case "Find id by product":
+          case "What is the ID of the product you would like to buy?":
             idSearch();
             break;
   
-          case "Find units availalbe":
-            unitsSearch();
+          case "How many units would you like to buy?":
+            unitsSearch(answer);
             break;
         }
       });
@@ -61,43 +62,80 @@ function idSearch() {
         type: "input",
         message: "What is the product id?",
         validate: function(value) {
-            if (isNan(value) === false) {
+            if (isNaN(value) === false) {
                 return true;
             }
-            return fales;
+            return false;
         }
     })
     .then(function(answer) {
-        var query = "SELECT id, FROM products WHERE ?";
+        var query = "SELECT id FROM products WHERE ?";
         connection.query(query, { id: answer.id }, function(err, response) {
+            console.log(answer);
           for (var i = 0; i < response.length; i++) {
-            console.log("ID: " + ressponse[i].id);
+            console.log("ID: " + response[i].id);
           }
-          runSearch();
+          unitsSearch(answer.id);
         });
       });
   }
 
-function unitsSearch() {
+function unitsSearch(item) {
+    console.log(item);
     inquirer
-    .prompt({
-        name: "units",
+    .prompt([
+        {
+        name: "stock_quantity",
         type: "input",
-        message: "How many units would you like to buy?"
-    })
+        message: "How many units would you like to buy?",
+        validate: function(answer) {
+            if (isNaN(answer) === false) {
+                return true;
+            }
+            return false;
+        }
+    }
+    ])
     .then(function(answer) {
-        var query = "SELECT stock_quantity, FROM products WHERE ?";
+        console.log("answer " + answer);
+        var query = "SELECT stock_quantity FROM products WHERE ?";
         connection.query(query, { stock_quantity: answer.stock_quantity }, function(err, response) {
           for (var i = 0; i < response.length; i++) {
-            console.log("ID: " + ressponse[i].stock_quantity);
+            console.log("ID: " + response[i].stock_quantity);
           }
-          runSearch();
+          updateProduct(answer.quantity, item);
         });
       });
   }
 
 
+  function updateProduct(chosenID, quantity) {
+    console.log("Updating all stock quantities...\n");
+    console.log("this is the chosenId" + chosenID + " this is the quantity " + quantity);
+    var query = connection.query(
+      "UPDATE products SET ? WHERE ?",
+      [chosenID, quantity],
+      function(err, response) {
+        // console.log(response.stock_quantity + " products updated!\n");
+        // Call deleteProduct AFTER the UPDATE completes
+        readProducts();
+      }
+    );
+  
+    // logs the actual query being run
+    console.log(query.sql);
+  }
 
+
+  function readProducts() {
+    console.log("Selecting all products...\n");
+    connection.query("SELECT * FROM products", function(err, response) {
+      if (err) throw err;
+      // Log all results of the SELECT statement
+      console.table(response);
+      connection.end();
+    });
+  }
 
 
 
@@ -131,7 +169,7 @@ function unitsSearch() {
 //       });
 //   }
 
-// function unitsSearch() {
+// function idSearch() {
 //     inquirer
 //     .prompt({
 //         name: "productID",
@@ -150,7 +188,7 @@ function unitsSearch() {
 //   }
 
 
-// function idSearch() {
+// function unitSearch() {
 //     inquirer
 //     .prompt({
 //         name: "units",
