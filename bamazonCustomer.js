@@ -17,7 +17,7 @@ connection.connect(function(err) {
   if (err) throw err;
   console.log("____________");
   console.log("connected as id " + connection.threadId);
-//   runSearch();
+
 
 
 connection.query("select * from products", function(err, response) {
@@ -26,70 +26,71 @@ connection.query("select * from products", function(err, response) {
     }
     console.log("____________");
     console.log(response);
+    runSearch();
   });
   
     // connection.end();
   });
   
-//   function runSearch() {
-//     inquirer
-//       .prompt({
-//         name: "action",
-//         type: "list",
-//         message: "What would you like to buy?",
-//         choices: [
-//           "What is the ID of the product you would like to buy",
-//           "Find all artists who appear more than once",
-//           "Find data within a specific range",
-//           "Search for a specific song"
-//         ]
-//       })
-//       .then(function(answer) {
-//         switch (answer.action) {
-//           case "Find songs by artist":
-//             artistSearch();
-//             break;
+ 
+
+  function runSearch() {
+    inquirer
+      .prompt({
+        name: "action",
+        type: "list",
+        message: "Thank you for shopping at bamazon",
+        choices: [
+          "What is the ID of the product you would like to buy?",
+          "How many units would you like to buy?"
+        ]
+      })
+      .then(function(answer) {
+        switch (answer.action) {
+          case "Find id by product":
+            idSearch();
+            break;
   
-//           case "Find all artists who appear more than once":
-//             multiSearch();
-//             break;
-  
-//           case "Find data within a specific range":
-//             rangeSearch();
-//             break;
-  
-//           case "Search for a specific song":
-//             songSearch();
-//             break;
-//         }
-//       });
-//   }
+          case "Find units availalbe":
+            unitsSearch();
+            break;
+        }
+      });
+  }
+
+function idSearch() {
+    inquirer
+    .prompt({
+        name: "productID",
+        type: "list",
+        message: "What is the product ID?"
+    })
+    .then(function(answer) {
+        var query = "SELECT id, FROM products WHERE ?";
+        connection.query(query, { id: answer.id }, function(err, response) {
+          for (var i = 0; i < response.length; i++) {
+            console.log("ID: " + ressponse[i].id);
+          }
+          runSearch();
+        });
+      });
+  }
 
 
-
-// function start() {
-//     inquirer
-//     .prompt([
-//         {
-//         name: "productID",
-//         type: "list",
-//         message: "Would is the product ID?",
-//     },
-//     {
-//         name: "units",
-//         type: "list",
-//         messag: "How many units would you like to buy?",
-//         validate: function(value) {
-//             if (isNaN(value) === false) {
-//               return true;
-//             }
-//             return false;
-//           }
-//         }
-//       ])
-//     .then(function(answer){
-//         if(answer.
-
-//         }
-//     })
-// }
+function idSearch() {
+    inquirer
+    .prompt({
+        name: "units",
+        type: "list",
+        message: "How many units would you like to buy?"
+    })
+    .then(function(answer) {
+        var query = "SELECT stock_quantity, FROM products WHERE ?";
+        connection.query(query, { stock_quantity: answer.stock_quantity }, function(err, response) {
+          for (var i = 0; i < response.length; i++) {
+            console.log("ID: " + ressponse[i].stock_quantity);
+          }
+          runSearch();
+        });
+      });
+  }
