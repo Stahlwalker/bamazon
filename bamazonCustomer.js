@@ -19,8 +19,7 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId);
 
 
-
-connection.query("select * from products", function(err, response) {
+  connection.query("select * from products", function(err, response) {
     if(err) {
       throw err;
     }
@@ -31,8 +30,7 @@ connection.query("select * from products", function(err, response) {
   
     // connection.end();
   });
-  
- 
+
 
   function runSearch() {
     inquirer
@@ -62,7 +60,7 @@ function idSearch() {
     inquirer
     .prompt({
         name: "productID",
-        type: "list",
+        type: "input",
         message: "What is the product ID?"
     })
     .then(function(answer) {
@@ -81,7 +79,7 @@ function idSearch() {
     inquirer
     .prompt({
         name: "units",
-        type: "list",
+        type: "input",
         message: "How many units would you like to buy?"
     })
     .then(function(answer) {
@@ -94,3 +92,71 @@ function idSearch() {
         });
       });
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+// function itemAmazon() {
+//     connection.query("Select * FROM products", function(err, repsonse) {
+//         if (err) throw err;
+//         inquirer
+//         .prompt([
+//             {
+//                 name: "choice",
+//                 type: "list",
+//                 choices: function() {
+//                     var choiceArray = [];
+//                     for (var i = 0; i < response.length; i++) {
+//                         choiceArray.push(response[i].id);
+//                     }
+//                     return choiceArray;
+//                 },
+//                 {
+//                     name: "buy",
+//                     type: "input",
+//                     message: "What product item id would you like to buy?"
+//                 }
+//             ])
+//             .then(function(answer){
+//                 var chosenItem;
+//                 for (var i = 0; i < response.length; i++) {
+//                     if (repsonse[i].id === answer.choice) {
+//                         chosenItem = response[i];
+//                     }
+//                 };
+//             });
+//         }
+
+        
+
+
+
+
+
+
+
+
+
+
+  
+ 
