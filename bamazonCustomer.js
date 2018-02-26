@@ -17,7 +17,7 @@ connection.connect(function(err) {
   if (err) throw err;
   console.log("____________");
   console.log("connected as id " + connection.threadId);
-
+});
 
   connection.query("select * from products", function(err, response) {
     if(err) {
@@ -29,15 +29,13 @@ connection.connect(function(err) {
   });
   
     // connection.end();
-  });
-
-
+ 
   function runSearch() {
     inquirer
       .prompt({
         name: "action",
         type: "list",
-        message: "Thank you for shopping at bamazon",
+        message: "Please select from the following",
         choices: [
           "What is the ID of the product you would like to buy?",
           "How many units would you like to buy?"
@@ -59,9 +57,15 @@ connection.connect(function(err) {
 function idSearch() {
     inquirer
     .prompt({
-        name: "productID",
+        name: "id",
         type: "input",
-        message: "What is the product ID?"
+        message: "What is the product id?",
+        validate: function(value) {
+            if (isNan(value) === false) {
+                return true;
+            }
+            return fales;
+        }
     })
     .then(function(answer) {
         var query = "SELECT id, FROM products WHERE ?";
@@ -74,8 +78,7 @@ function idSearch() {
       });
   }
 
-
-function idSearch() {
+function unitsSearch() {
     inquirer
     .prompt({
         name: "units",
@@ -104,17 +107,89 @@ function idSearch() {
 
 
 
-
-
-
-
-
-
-
-
-
-
+//   function runSearch() {
+//     inquirer
+//       .prompt({
+//         name: "action",
+//         type: "list",
+//         message: "Thank you for shopping at bamazon",
+//         choices: [
+//           "What is the ID of the product you would like to buy?",
+//           "How many units would you like to buy?"
+//         ]
+//       })
+//       .then(function(answer) {
+//         switch (answer.action) {
+//           case "Find id by product":
+//             idSearch();
+//             break;
   
+//           case "Find units availalbe":
+//             unitsSearch();
+//             break;
+//         }
+//       });
+//   }
+
+// function unitsSearch() {
+//     inquirer
+//     .prompt({
+//         name: "productID",
+//         type: "input",
+//         message: "What is the product ID?"
+//     })
+//     .then(function(answer) {
+//         var query = "SELECT id, FROM products WHERE ?";
+//         connection.query(query, { id: answer.id }, function(err, response) {
+//           for (var i = 0; i < response.length; i++) {
+//             console.log("ID: " + ressponse[i].id);
+//           }
+//           runSearch();
+//         });
+//       });
+//   }
+
+
+// function idSearch() {
+//     inquirer
+//     .prompt({
+//         name: "units",
+//         type: "input",
+//         message: "How many units would you like to buy?"
+//     })
+//     .then(function(answer) {
+//         var query = "SELECT stock_quantity, FROM products WHERE ?";
+//         connection.query(query, { stock_quantity: answer.stock_quantity }, function(err, response) {
+//           for (var i = 0; i < response.length; i++) {
+//             console.log("ID: " + ressponse[i].stock_quantity);
+//           }
+//           runSearch();
+//         });
+//       });
+//   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // function itemAmazon() {
 //     connection.query("Select * FROM products", function(err, repsonse) {
