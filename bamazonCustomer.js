@@ -113,10 +113,19 @@ function unitsSearch(item) {
     console.log("Updating all stock quantities...\n");
     console.log("this is the chosenId " + item + " this is the quantity you would like to add " + stock_quantity);
     // var query = connection.query("UPDATE products SET ? WHERE ?", [{stock_quantity: answer.stock_quantity}, {id: answer.id}]);
-    var query = connection.query(
+    connection.query(
       "UPDATE products SET ? WHERE ?",
-      [item, stock_quantity],
-      function(err, response) {
+      // [item, stock_quantity],
+      [
+      {
+        stock_quantity: stock_quantity,
+        id: item
+      },
+    ],
+      function(error, response) {
+        // if (error) throw error;
+        // console.log("updated product successfully!");
+
         // console.log(response.stock_quantity + " products updated!\n");
         // Call deleteProduct AFTER the UPDATE completes
         readProducts();
