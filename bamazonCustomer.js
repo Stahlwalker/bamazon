@@ -26,12 +26,12 @@ var connection = mysql.createConnection({
     }
     console.log("____________");
     console.table(response);
-    runSearch();
+    start();
   });
   
     // connection.end();
     
-  function runSearch() {
+  function start() {
     inquirer
       .prompt({
         name: "action",
@@ -71,9 +71,9 @@ function idSearch() {
     .then(function(answer) {
         var query = "SELECT id FROM products WHERE ?";
         connection.query(query, { id: answer.id }, function(err, response) {
-            console.log(answer);
+            // console.log(answer);
           for (var i = 0; i < response.length; i++) {
-            console.log("ID: " + response[i].id);
+            // console.log("ID: " + response[i].id);
           }
           unitsSearch(answer.id);
         });
@@ -97,11 +97,11 @@ function unitsSearch(item) {
     }
     ])
     .then(function(answer) {
-        console.log("answer " + answer);
+        // console.log("answer " + answer);
         var query = "SELECT stock_quantity FROM products WHERE ?";
         connection.query(query, { stock_quantity: answer.stock_quantity }, function(err, response) {
           for (var i = 0; i < response.length; i++) {
-            console.log("ID: " + response[i].stock_quantity);
+            console.log("Quantity: " + response[i].stock_quantity);
           }
           updateProduct(item, answer.stock_quantity);
         });
@@ -115,16 +115,19 @@ function unitsSearch(item) {
     // var query = connection.query("UPDATE products SET ? WHERE ?", [{stock_quantity: answer.stock_quantity}, {id: answer.id}]);
     connection.query(
       "UPDATE products SET ? WHERE ?",
-      // [item, stock_quantity],
-      [
-      {
-        stock_quantity: stock_quantity,
-        id: item
-      },
-    ],
+      [item, stock_quantity],
+    //   [
+    //   {
+    //     stock_quantity: stock_quantity
+    //   },
+    //   {
+    //     id: item,
+        
+    //   }
+    // ],
       function(error, response) {
         // if (error) throw error;
-        // console.log("updated product successfully!");
+        console.log("updated product successfully!");
 
         // console.log(response.stock_quantity + " products updated!\n");
         // Call deleteProduct AFTER the UPDATE completes
@@ -141,7 +144,7 @@ function unitsSearch(item) {
       // Log all results of the SELECT statement
       console.table(response);
       // connection.end();
-      runSearch();
+      start();
     });
   }
 
