@@ -30,7 +30,7 @@ connection.connect(function(err) {
   });
   
     // connection.end();
- 
+    
   function runSearch() {
     inquirer
       .prompt({
@@ -113,18 +113,18 @@ function unitsSearch(item) {
           for (var i = 0; i < response.length; i++) {
             console.log("ID: " + response[i].stock_quantity);
           }
-          updateProduct(answer.quantity, item);
+          updateProduct(item, answer.stock_quantity);
         });
       });
   }
 
 
-  function updateProduct(item, quantity) {
+  function updateProduct(item, stock_quantity) {
     console.log("Updating all stock quantities...\n");
-    console.log("this is the chosenId " + item + " this is the quantity " + quantity);
+    console.log("this is the chosenId " + item + " this is the quantity " + stock_quantity);
     var query = connection.query(
       "UPDATE products SET ? WHERE ?",
-      [item, quantity],
+      [item, stock_quantity],
       function(err, response) {
         // console.log(response.stock_quantity + " products updated!\n");
         // Call deleteProduct AFTER the UPDATE completes
