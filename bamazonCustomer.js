@@ -14,11 +14,11 @@ var connection = mysql.createConnection({
   database: "bamazonDB"
 });
 
-connection.connect(function(err) {
-  if (err) throw err;
-  console.log("____________");
-  console.log("connected as id " + connection.threadId);
-});
+// connection.connect(function(err) {
+//   if (err) throw err;
+//   console.log("____________");
+//   console.log("connected as id " + connection.threadId);
+// });
 
   connection.query("select * from products", function(err, response) {
     if(err) {
@@ -80,16 +80,6 @@ function idSearch() {
       });
   }
 
-
-
-
-
-
-
-
-
-
-  
 function unitsSearch(item) {
     console.log(item);
     inquirer
@@ -121,7 +111,8 @@ function unitsSearch(item) {
 
   function updateProduct(item, stock_quantity) {
     console.log("Updating all stock quantities...\n");
-    console.log("this is the chosenId " + item + " this is the quantity " + stock_quantity);
+    console.log("this is the chosenId " + item + " this is the quantity you would like to add " + stock_quantity);
+    // var query = connection.query("UPDATE products SET ? WHERE ?", [{stock_quantity: answer.stock_quantity}, {id: answer.id}]);
     var query = connection.query(
       "UPDATE products SET ? WHERE ?",
       [item, stock_quantity],
@@ -131,18 +122,41 @@ function unitsSearch(item) {
         readProducts();
       }
     );
-  
-    // logs the actual query being run
-    console.log(query.sql);
   }
 
 
   function readProducts() {
-    console.log("Selecting all products...\n");
+    console.log("Loading all updated products...\n");
     connection.query("SELECT * FROM products", function(err, response) {
       if (err) throw err;
       // Log all results of the SELECT statement
       console.table(response);
-      connection.end();
+      // connection.end();
+      runSearch();
     });
   }
+
+
+
+
+
+
+
+
+//   var stockIndex = id;
+
+//   if (answer.stock_quantity < response[stockIndex - 1].stock_quantity){
+//       console.log("This is answer.stock " + answer.stock);
+//       console.log("This is response[stockIndex - 1].stock_quntity " + response[stockIndex - 1].stock_quantity);
+
+//       var updatedStock =  response[stockIndex - 1].stock_quantity  - answer.stock_quantity;
+//       console.log("Success, we have it in stock");
+
+//       connection.query("UPDATE products SET ? WHERE ?", [{stock_quantity: updatedStack}, {id: stockIndex}]);
+
+//       console.log("Total cost: " + (response[stockIndex - 1].price) * answer.stock);
+//   }
+
+//   else {
+//       console.log("Insufficient quantity!");
+//   }
