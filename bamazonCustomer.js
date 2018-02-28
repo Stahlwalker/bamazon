@@ -14,11 +14,6 @@ var connection = mysql.createConnection({
   database: "bamazonDB"
 });
 
-// connection.connect(function(err) {
-//   if (err) throw err;
-//   console.log("____________");
-//   console.log("connected as id " + connection.threadId);
-// });
 
   connection.query("select * from products", function(err, response) {
     if(err) {
@@ -29,33 +24,8 @@ var connection = mysql.createConnection({
     start();
   });
   
-    // connection.end();
     
-  function start() {
-    inquirer
-      .prompt({
-        name: "action",
-        type: "list",
-        message: "Please select from the following",
-        choices: [
-          "What is the ID of the product you would like to buy?",
-        //   "How many units would you like to buy?"
-        ]
-      })
-      .then(function(answer) {
-        switch (answer.action) {
-          case "What is the ID of the product you would like to buy?":
-            idSearch();
-            break;
-  
-          case "How many units would you like to buy?":
-            unitsSearch(answer);
-            break;
-        }
-      });
-  }
-
-function idSearch() {
+function start() {
     inquirer
     .prompt({
         name: "id",
@@ -99,10 +69,11 @@ function unitsSearch(item) {
     .then(function(answer) {
         // console.log("answer " + answer);
         var query = "SELECT stock_quantity FROM products WHERE ?";
-        connection.query(query, { stock_quantity: answer.stock_quantity }, function(err, response) {
+        connection.query(query, { id:item }, function(err, response) {
           for (var i = 0; i < response.length; i++) {
             console.log("Quantity: " + response[i].stock_quantity);
           }
+          // add if statement to 
           updateProduct(item, answer.stock_quantity);
         });
       });
@@ -115,16 +86,16 @@ function unitsSearch(item) {
     // var query = connection.query("UPDATE products SET ? WHERE ?", [{stock_quantity: answer.stock_quantity}, {id: answer.id}]);
     connection.query(
       "UPDATE products SET ? WHERE ?",
-      [item, stock_quantity],
-    //   [
-    //   {
-    //     stock_quantity: stock_quantity
-    //   },
-    //   {
-    //     id: item,
+      // [item, stock_quantity],
+      [
+      {
+        stock_quantity: stock_quantity
+      },
+      {
+        id: item,
         
-    //   }
-    // ],
+      }
+    ],
       function(error, response) {
         // if (error) throw error;
         console.log("updated product successfully!");
