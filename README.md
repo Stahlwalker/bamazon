@@ -1,7 +1,7 @@
 # bamazon
 
 
-![This is a screen shot of text file results](https://giphy.com/gifs/vxoW0CWOx6ecJCRrwd/html5)
+![This is a screen shot of text file results](https://github.com/Stahlwalker/bamazon/blob/master/giphy.mp4)
 
 ## What the project does?
     * This project uses node package managers for Twitter, Spotify and OMDB to pull data upon request.  
