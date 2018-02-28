@@ -63,28 +63,18 @@ function unitsSearch(item) {
           for (var i = 0; i < response.length; i++) {
               var qtyInput = response[i].stock_quantity;
 
-              console.log(qtyInput);
+            console.log(qtyInput);
                 
             console.log("Quantity: " + qtyInput);
-            // if ((answer) > item) {
-            //   console.log("Insuffiecient quantity");
-            // }
-          //   if (answer.item === 0) {
-          //     console.log("Please input a quantity greater than 0.  Retruning to store front...");
-          //     start();  
-          //   }
-          //   else if (answer.stock_quantity < [item - 1].stock_quantity){
-          //     console.log("This is answer.stock_quantity " + answer.stock_quantity);
-          //     console.log("This is res[item - 1].stock_quantity " + response[item - 1].stock_quantity);
-          //   }
-          //   // var updatedStock = res[stock]
-          //   var updatedStock = response[item - 1].stock_quantity - answer.stock_quantity;
-          //   console.log("You're allowed to buy that many!"); 
-    
-          //   // Updates stocks for that item in MySQL
-          //   connection.query("UPDATE products SET ? WHERE ?", 
-          //     [{stock_quantity: updatedStock}, 
-          //     {id: item}]);
+
+          //  if (qtyInput === 0) {
+          //    console.log("please input a quantity greater than 0. Returning to store front...");
+          //  }
+
+          //  if (qtyInput > item) {
+          //    console.log("Insufficient Quantity");
+          //  }
+           
           }
           // add if statement to 
        
