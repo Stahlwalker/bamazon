@@ -4,9 +4,11 @@
 ![Alt Text](https://media.giphy.com/media/9PAFVdtRBvFLxZfIkO/giphy.gif)
 
 ## What the project does?
-    * This project uses node package managers inquire to ask users for input regarding their store front selections.  
+    * This project uses node package manager inquire to ask users for input regarding their store front selections.  
     * A table is provided to show all store front inventory.   
     * Essentially the user is able to select which product ID they would like and then immediately are prompted to log how many units to purchase.
+    * The database is stored in mySQL so that was another package manager that was added. 
+    * A fun note this project also uses console.table(); to log the data from mySQL in a table format rather than listing it out.  In order to use console.table the npm had to be installed.
 
 ## Why the project is useful?
     * This project is useful because it shows how data can be changed on the backend.    
