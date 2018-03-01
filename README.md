@@ -1,7 +1,7 @@
 # bamazon
 
 
-![Alt Text](https://giphy.com/embed/vxoW0CWOx6ecJCRrwd)
+![Alt Text](https://media.giphy.com/media/9PAFVdtRBvFLxZfIkO/giphy.gif)
 
 ## What the project does?
     * This project uses node package managers for Twitter, Spotify and OMDB to pull data upon request.  
