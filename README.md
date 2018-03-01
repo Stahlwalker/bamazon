@@ -4,21 +4,24 @@
 ![Alt Text](https://media.giphy.com/media/9PAFVdtRBvFLxZfIkO/giphy.gif)
 
 ## What the project does?
-    * This project uses node package managers for Twitter, Spotify and OMDB to pull data upon request.  
-    * It also uses the npm request to make http calls.  It supports HTTPS and follows redirects by default.  
+    * This project uses node package managers inquire to ask users for input regarding their store front selections.  
+    * A table is provided to show all store front inventory.   
+    * Essentially the user is able to select which product ID they would like and then immediately are prompted to log how many units to purchase.
 
 ## Why the project is useful?
-    * This project is useful for pulling 20 of the latest tweets from the twitter profile @PackersStahl.  
+    * This project is useful because it shows how data can be changed on the backend.    
 
-    * It also can display data from songs via spotify.  Users can get data specific to song name, artist name, a preview url that takes you to the song and the album name.  
+    * It also can display updated data to reflect those changes.   
 
-    * Finally this project provides movie info from the internet movie database. Upon request movie data will display the movie title, release year, imdb rating, rotten tomatos rating, country it was produced, language, plot, and actors.  
+    * Finally this project provides item info for 10 products that can be purchased on Bamazon.  Each item is provided with an id, product name, dept name, price and stock quantity. Upon id request each product's quantity will update to reflect the ask.  
 
 ## How users can get started with the project?
     * In the command line users can provide the following:
-    * 1. node liri.js my-tweets
-    * 2. node liri.js spotify-this-song 'song name here'
-    * 3. node liri.js movie-this 'movie name here'
+    * 1. node bamazonCustomer.js 
+    * 2. review table of available products
+    * 3. type product id number
+    * 4. type quantity requested
+    * 5. review updated table
 
 ## Who maintains and contributes to the project?
     * This project was created for a coding bootcamp and is maintained by the author Luke Stahl
