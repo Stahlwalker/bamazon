@@ -1,7 +1,7 @@
 # bamazon
 
-
-![Alt Text](https://media.giphy.com/media/9PAFVdtRBvFLxZfIkO/giphy.gif)
+## Watch giphy of project
+![Alt Text](https://media.giphy.com/media/fHcc4ynwsKb2pRNe1u/giphy.gif)
 
 ![This is a screen shot of text file results](https://github.com/Stahlwalker/bamazon/blob/master/mysql.jpg)
 
