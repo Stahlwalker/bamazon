@@ -3,6 +3,8 @@
 
 ![Alt Text](https://media.giphy.com/media/9PAFVdtRBvFLxZfIkO/giphy.gif)
 
+![This is a screen shot of text file results](https://github.com/Stahlwalker/bamazon/blob/master/mysql.jpg)
+
 ## What the project does?
     * This project uses node package manager inquire to ask users for input regarding their store front selections.  
     * A table is provided to show all store front inventory.   
