@@ -60,17 +60,18 @@ function unitsSearch(item) {
         // console.log("answer " + answer);
         var query = "SELECT stock_quantity FROM products WHERE ?";
         connection.query(query, { id:item }, function(err, response) {
-          for (var i = 0; i < response.length; i++) {
-              var qtyInput = response[i].stock_quantity;
+          for (var i = 0; i < answer.length; i++) {
+              var qtyInput = answer[i].stock_quantity;
 
             console.log(qtyInput);
                 
             console.log("Quantity: " + qtyInput);
+            console.log(repsonse[0].stock_quantity);
 
            if (qtyInput === 0) {
              console.log("please input a quantity greater than 0. Returning to store front...");
              
-           }else if (qtyInput > item) {
+           }else if (qtyInput > response[0].stock_quantity) {
              console.log("Insufficient Quantity");
            }
            
